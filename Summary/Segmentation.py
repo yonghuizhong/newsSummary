@@ -12,7 +12,6 @@ def get_default_stop_words():
     with open(file, 'rt') as f:
         for line in f:
             stop_words.add(line.strip())
-    print('the number of stop words is ', str(len(stop_words)))
     return stop_words
 
 

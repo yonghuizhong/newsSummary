@@ -2,7 +2,7 @@ import math
 import numpy as np
 import networkx as nx
 
-sentence_delimiters = ['.', '...', '......', '?', '!', ';', '.', '？', '！', '；', '。', '。。。', '。。。。。。', '\n']
+sentence_delimiters = ['…', '……', '?', '!', ';', '.', '？', '！', '；', '。', '\n']
 allow_speech_tags = ['an', 'i', 'j', 'l', 'n', 'nr', 'nrfg', 'ns', 'nt', 'nz', 't', 'v', 'vd', 'vn', 'eng']
 
 
@@ -49,18 +49,12 @@ def sort_sentences(sentences, words, sim_function=similarity):
             graph[y, x] = sim_value
 
     nx_graph = nx.from_numpy_matrix(graph)  # 从上面的矩阵中得到图
-    scores = nx.pagerank(nx_graph)  # 返回pr值，字典类型
-    sorted_scores = sorted(scores.items(), key=lambda item: item[1], reverse=True)  # 按分数进行降序输出
-    print("测试信息输出，scores.items：")
-    print(scores.items())
-    print("/////////////////////////////////////")
-    print("测试信息输出，sorted_scores：")
-    print(sorted_scores)
-    print("/////////////////////////////////////")
+    scores = nx.pagerank(nx_graph)  # 返回pr值，字典类型：key为索引，value为分数
+    sorted_scores = sorted(scores.items(), key=lambda item: item[1], reverse=True)  # 按分数进行降序输出，列表类型
     sorted_sentences = []
-    for index, score in sorted_scores:
+    for index, score in sorted_scores:  # 列表元素为(index, score)
         item = AttrDict(index=index, sentence=sentences[index], weight=score)
-        sorted_sentences.append(item)
+        sorted_sentences.append(item)  # 列表元素为字典格式
     return sorted_sentences
 
 
