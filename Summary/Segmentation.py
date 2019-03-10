@@ -1,5 +1,6 @@
 import jieba.posseg as pseg
 import os
+import re
 
 from . import tool
 
@@ -63,14 +64,10 @@ class SentenceSegmentation(object):
         self.delimiters = set([item for item in delimiters])
 
     def segment(self, text):
-        res = [text]
-
-        for sep in self.delimiters:
-            text, res = res, []
-            for seq in text:
-                res += seq.split(sep)
-        res = [s.strip() for s in res if len(s.strip()) > 0]
-        return res
+        regex_pattern = '|'.join(map(re.escape, self.delimiters))
+        sentences = re.split(regex_pattern, text)  # 使用正则表达式进行分句
+        sentences = [i.strip() for i in sentences if len(i.strip()) > 0]
+        return sentences
 
 
 class Segmentation(object):
