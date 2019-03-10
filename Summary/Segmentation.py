@@ -9,7 +9,7 @@ def get_default_stop_words():
     stop_words = set()
     d = os.path.dirname(os.path.realpath(__file__))  # 得到模块所在的绝对路径
     file = os.path.join(d, 'stopwords.txt')
-    with open(file, 'rt') as f:
+    with open(file, 'rt', encoding='UTF-8', errors='ignore') as f:
         for line in f:
             stop_words.add(line.strip())
     return stop_words

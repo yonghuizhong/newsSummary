@@ -1,6 +1,6 @@
 from Summary import TextRankSentence
 
-text = open('news.txt').read()
+text = open('news.txt', encoding='UTF-8', errors='ignore').read()
 # print(text)
 textrank = TextRankSentence.TextRankSentence()
 textrank.analyze(text=text)  # 得到排序后的句子
