@@ -23,8 +23,8 @@ def gen_summary(text, _id):
 if __name__ == '__main__':
     print('正在生成摘要...')
     begin = time.time()
-    text_list = [i['article'] for i in links.find()]
-    id_list = [i['_id'] for i in links.find()]
+    text_list = [i['article'] for i in links.find().limit(100)]
+    id_list = [i['_id'] for i in links.find().limit(100)]
     pool = ProcessingPool()
     pool.map(gen_summary, text_list, id_list)
     end = time.time() - begin
