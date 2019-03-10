@@ -33,7 +33,7 @@ class TextRankSentence(object):
             if len(i['sentence']) >= min_len:
                 result.append(i)
                 count += 1
-        print('first sentence: ', len(result[0]['sentence']))
+        # print('first sentence: ', len(result[0]['sentence']))
         if len(result[0]['sentence']) >= 90:
             summary = result[0]['sentence']
         else:
@@ -42,8 +42,8 @@ class TextRankSentence(object):
             summary = '。'.join(sentence_by_index)
             if len(summary) > 160:
                 summary = result[0]['sentence']
-        print('after: ', len(summary))
-        print('original result: ', result)
+        # print('after: ', len(summary))
+        # print('original result: ', result)
         return summary
 
 

@@ -2,7 +2,7 @@ import math
 import numpy as np
 import networkx as nx
 
-sentence_delimiters = ['…', '……', '?', '!', ';', '.', '？', '！', '；', '。', '\n']
+sentence_delimiters = ['…', '……', '?', '!', ';', '？', '！', '；', '。', '\n']
 allow_speech_tags = ['an', 'i', 'j', 'l', 'n', 'nr', 'nrfg', 'ns', 'nt', 'nz', 't', 'v', 'vd', 'vn', 'eng']
 
 
