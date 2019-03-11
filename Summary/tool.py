@@ -27,7 +27,7 @@ def similarity(word_list1, word_list2):
     if abs(all_num) <= 1e-12:
         return 0
 
-    denominator = math.log(float(len(word_list1)) + float(len(word_list2)))  # 分母
+    denominator = math.log(float(len(word_list1))) + math.log(float(len(word_list2)))  # 分母
     if abs(denominator) < 1e-12:
         return 0
 
