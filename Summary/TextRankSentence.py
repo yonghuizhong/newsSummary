@@ -1,23 +1,28 @@
 from . import tool
 from .Segmentation import Segmentation
+from .Segmentation import WordSegmentation
 
 
 class TextRankSentence(object):
     def __init__(self):
         self.seg = Segmentation()
+        self.title_seg = WordSegmentation()
         self.sentences = None
         self.words = None
         self.key_sentences = None
+        self.title_words = None
 
-    def analyze(self, text):
+    def analyze(self, text, title):
         self.key_sentences = []
         result = self.seg.segment(text=text)  # 得到分词后的结果
         self.sentences = result.sentences  # 句子列表
         self.words = result.words  # 二维列表
+        self.title_words = self.title_seg.segment(text=title, lower=False, use_stop_words=True,
+                                                  use_speech_tags_filter=True)  # 对标题进行分词
 
         # 得到排序后的句子，列表元素为字典格式：包含索引、句子、权重（即PR值）
         self.key_sentences = tool.sort_sentences(sentences=self.sentences,
-                                                 words=self.words)
+                                                 words=self.words, title_words=self.title_words)
 
     # 生成摘要：最重要的num个句子长度>=min_len的句子
     # 将最重要的第一、二句按照句子由低到高的位置拼接形成摘要
