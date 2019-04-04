@@ -75,17 +75,20 @@ def sort_sentences(sentences, words, title_words, sim_function=similarity, e1=0.
         scores_third = scores_second
     else:
         sim_denominator = sim_function(title_words, title_words)
-        for index in range(num):
-            sim_numerator = sim_function(title_words, words[index])
-            sim_percents.append(sim_numerator/sim_denominator)
-        for index, score in scores_second:
-            if w < sim_percents[index] < 1:  # 比值大于w时，调整PR值
-                adjusted_score = score * sim_percents[index] * e3
-                # print(sim_percents[index], sentences[index])
-                # print('old_score:', score, 'new_score:', adjusted_score)
-            else:
-                adjusted_score = score
-            scores_third.append((index, adjusted_score))
+        if sim_denominator == 0:
+            scores_third = scores_second
+        else:
+            for index in range(num):
+                sim_numerator = sim_function(title_words, words[index])
+                sim_percents.append(sim_numerator/sim_denominator)
+            for index, score in scores_second:
+                if w < sim_percents[index] < 1:  # 比值大于w时，调整PR值
+                    adjusted_score = score * sim_percents[index] * e3
+                    # print(sim_percents[index], sentences[index])
+                    # print('old_score:', score, 'new_score:', adjusted_score)
+                else:
+                    adjusted_score = score
+                scores_third.append((index, adjusted_score))
     # for i, j in scores_third:
     #     print(i, j)
 
